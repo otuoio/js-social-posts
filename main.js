@@ -186,19 +186,25 @@ for (i = 0; i < post.length; i++) {
         `;
     }
 
+    
     // Inserisco il template nel DOM
     container.innerHTML += template;
-
+    
 }
 
 // Aumentare il contatore dei like al click del bottone
 const button = document.querySelectorAll('.likes__cta');
 let label = document.querySelectorAll('.like-button__label');
 
-    button[i].addEventListener('click', function () {
-        label[i].classList.add('green');
-        // textLike.style.color = 'green';
-        // textLike[i].classList.add('green');
-        // console.log(textLike[i]);
-        
-    });
+
+    for (i = 0; i < button.length; i++) {
+
+        button[i].addEventListener('click', function () {
+            
+            // label[i].classList.add('green');
+            // textLike.style.color = 'green';
+            // textLike[i].classList.add('green');
+            // console.log(textLike[i]);
+            
+        });
+    }
