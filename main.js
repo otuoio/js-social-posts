@@ -17,7 +17,7 @@ const post = [
     },
     {
         name : 'Lucio Casillo',
-        profileImage : '2',
+        profileImage : '',
         date: '11-23-2021',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         image: '17',
@@ -99,44 +99,92 @@ function dateIta (obj) {
 //     return template;
 // }
 
+// Funzione che separa nomi da cognomi e genera le iniziali
+function iniziali (string) {
+    const stringArray = string.split(' ');
+    const name = stringArray[0];
+    const surname = stringArray[1];
+    const inizial = name[0].toUpperCase() + surname[0].toUpperCase();
+
+    return inizial;
+}
+
 // Richiamo il container 
 const container = document.getElementById('container');
 
 
 // Popolo il container con gli oggetti dell'array
 for (i = 0; i < post.length; i++) {
-    const template = `
-        <div class="post">
-            <div class="post__header">
-                <div class="post-meta">
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="https://unsplash.it/300/300?image=${post[i].profileImage}" alt="${post[i].name}">
+
+    // Gestione assenza immagine 
+    let template = ``;
+    if (post[i].profileImage == '') {
+        template = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">
+                        <div class="post-meta__icon">
+                            ${iniziali(post[i].name)}
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${post[i].name}</div>
+                            <div class="post-meta__time">${dateIta(post)}</div>
+                        </div>
                     </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${post[i].name}</div>
-                        <div class="post-meta__time">${dateIta(post)}</div>
+                </div>
+                <div class="post__text">${post[i].text}</div>
+                <div class="post__image">
+                    <img src="https://unsplash.it/600/300?image=${post[i].image}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#" data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-1" class="js-likes-counter">${post[i].likes}</b> persone
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="post__text">${post[i].text}</div>
-            <div class="post__image">
-                <img src="https://unsplash.it/600/300?image=${post[i].image}" alt="">
-            </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
+        `;
+    } else {
+        template = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">
+                        <div class="post-meta__icon">
+                            <img class="profile-pic" src="https://unsplash.it/300/300?image=${post[i].profileImage}" alt="${post[i].name}">
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${post[i].name}</div>
+                            <div class="post-meta__time">${dateIta(post)}</div>
+                        </div>
                     </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${post[i].likes}</b> persone
+                </div>
+                <div class="post__text">${post[i].text}</div>
+                <div class="post__image">
+                    <img src="https://unsplash.it/600/300?image=${post[i].image}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#" data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-1" class="js-likes-counter">${post[i].likes}</b> persone
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
+    }
 
     // Inserisco il template nel DOM
     container.innerHTML += template;
