@@ -194,15 +194,18 @@ for (i = 0; i < post.length; i++) {
 
 // Aumentare il contatore dei like al click del bottone
 const button = document.querySelectorAll('.likes__cta');
-let label = document.querySelectorAll('.like-button__label');
-
+const label = document.querySelectorAll('.like-button__label');
+const likesCount = document.querySelectorAll('.js-likes-counter');
 
     for (let i = 0; i < button.length; i++) {
 
         button[i].addEventListener('click', function () {
-            
+        
         label[i].style.color = 'green';
-        post[i].likes += 1;
-            
+        let counter = parseInt(likesCount[i].innerHTML);
+        counter += 1;
+        console.log(counter);
+        likesCount[i].innerHTML = counter;
+        
         });
     }
