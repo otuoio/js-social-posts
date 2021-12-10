@@ -10,7 +10,7 @@ const post = [
     {
         name : 'Phil Mangione',
         profileImage : '15',
-        date: '4 mesi fa',
+        date: '11-11-2020',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         image: '171',
         likes : 80
@@ -49,8 +49,59 @@ const post = [
     },
 ];
 
+// Funzione per formattare la data in italiano
+function dateIta (obj) {
+    const dateUsa = obj[i].date;
+    let m = dateUsa[0] + dateUsa[1] + dateUsa[2];
+    let g = dateUsa[3] + dateUsa[4] + dateUsa[5];
+    let a = dateUsa[6] + dateUsa[7] + dateUsa[8] + dateUsa[9];
+
+    const dateIt = g + m + a;
+
+    return dateIt
+}
+
+// Funzione per creare template
+// function createTemplate(obj) {
+//     const template = `
+//     <div class="post">
+//         <div class="post__header">
+//             <div class="post-meta">
+//                 <div class="post-meta__icon">
+//                     <img class="profile-pic" src="https://unsplash.it/300/300?image=${obj[i].profileImage}" alt="${obj[i].name}">
+//                 </div>
+//                 <div class="post-meta__data">
+//                     <div class="post-meta__author">${obj[i].name}</div>
+//                     <div class="post-meta__time">${obj[i].date}</div>
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="post__text">${obj[i].text}</div>
+//         <div class="post__image">
+//             <img src="https://unsplash.it/600/300?image=${obj[i].image}" alt="">
+//         </div>
+//         <div class="post__footer">
+//             <div class="likes js-likes">
+//                 <div class="likes__cta">
+//                     <a class="like-button  js-like-button" href="#" data-postid="1">
+//                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+//                         <span class="like-button__label">Mi Piace</span>
+//                     </a>
+//                 </div>
+//                 <div class="likes__counter">
+//                     Piace a <b id="like-counter-1" class="js-likes-counter">${obj[i].likes}</b> persone
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// `;
+
+//     return template;
+// }
+
 // Richiamo il container 
 const container = document.getElementById('container');
+
 
 // Popolo il container con gli oggetti dell'array
 for (i = 0; i < post.length; i++) {
@@ -63,7 +114,7 @@ for (i = 0; i < post.length; i++) {
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${post[i].name}</div>
-                        <div class="post-meta__time">${post[i].date}</div>
+                        <div class="post-meta__time">${dateIta(post)}</div>
                     </div>
                 </div>
             </div>
@@ -89,4 +140,17 @@ for (i = 0; i < post.length; i++) {
 
     // Inserisco il template nel DOM
     container.innerHTML += template;
+
 }
+
+// Aumentare il contatore dei like al click del bottone
+const button = document.querySelectorAll('.likes__cta');
+let label = document.querySelectorAll('.like-button__label');
+
+    button[i].addEventListener('click', function () {
+        label[i].classList.add('green');
+        // textLike.style.color = 'green';
+        // textLike[i].classList.add('green');
+        // console.log(textLike[i]);
+        
+    });
