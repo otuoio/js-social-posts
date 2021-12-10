@@ -50,8 +50,8 @@ const post = [
 ];
 
 // Funzione per formattare la data in italiano
-function dateIta (obj) {
-    const dateUsa = obj[i].date;
+function dateIta (date) {
+    const dateUsa = date;
     let m = dateUsa[0] + dateUsa[1] + dateUsa[2];
     let g = dateUsa[3] + dateUsa[4] + dateUsa[5];
     let a = dateUsa[6] + dateUsa[7] + dateUsa[8] + dateUsa[9];
@@ -128,7 +128,7 @@ for (i = 0; i < post.length; i++) {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${post[i].name}</div>
-                            <div class="post-meta__time">${dateIta(post)}</div>
+                            <div class="post-meta__time">${dateIta(post[i].date)}</div>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ for (i = 0; i < post.length; i++) {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${post[i].name}</div>
-                            <div class="post-meta__time">${dateIta(post)}</div>
+                            <div class="post-meta__time">${dateIta(post[i].date)}</div>
                         </div>
                     </div>
                 </div>
@@ -197,14 +197,12 @@ const button = document.querySelectorAll('.likes__cta');
 let label = document.querySelectorAll('.like-button__label');
 
 
-    for (i = 0; i < button.length; i++) {
+    for (let i = 0; i < button.length; i++) {
 
         button[i].addEventListener('click', function () {
             
-            // label[i].classList.add('green');
-            // textLike.style.color = 'green';
-            // textLike[i].classList.add('green');
-            // console.log(textLike[i]);
+        label[i].style.color = 'green';
+        post[i].likes += 1;
             
         });
     }
