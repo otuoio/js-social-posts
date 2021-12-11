@@ -51,7 +51,7 @@ const post = [
 
 // Funzione per creare template
 function createTemplate (name, profileImage, date, text, image, likes) {
-    template = `
+    const template = `
             <div class="post">
                 <div class="post__header">
                     <div class="post-meta">
@@ -95,7 +95,7 @@ function dateIta (date) {
 
     const dateIt = g + m + a;
 
-    return dateIt
+    return dateIt;
 }
 
 
