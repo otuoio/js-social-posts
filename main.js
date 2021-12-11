@@ -49,6 +49,43 @@ const post = [
     },
 ];
 
+// Funzione per creare template
+function createTemplate (name, profileImage, date, text, image, likes) {
+    template = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">
+                        <div class="post-meta__icon">
+                             <img class="profile-pic" src="https://unsplash.it/300/300?image=${profileImage}" alt="${iniziali(post[i].name)}">
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${name}</div>
+                            <div class="post-meta__time">${date}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post__text">${text}</div>
+                <div class="post__image">
+                    <img src="https://unsplash.it/600/300?image=${image}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#" data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    return template;
+}
+
 // Funzione per formattare la data in italiano
 function dateIta (date) {
     const dateUsa = date;
@@ -61,43 +98,6 @@ function dateIta (date) {
     return dateIt
 }
 
-// Funzione per creare template
-// function createTemplate(obj) {
-//     const template = `
-//     <div class="post">
-//         <div class="post__header">
-//             <div class="post-meta">
-//                 <div class="post-meta__icon">
-//                     <img class="profile-pic" src="https://unsplash.it/300/300?image=${obj[i].profileImage}" alt="${obj[i].name}">
-//                 </div>
-//                 <div class="post-meta__data">
-//                     <div class="post-meta__author">${obj[i].name}</div>
-//                     <div class="post-meta__time">${obj[i].date}</div>
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="post__text">${obj[i].text}</div>
-//         <div class="post__image">
-//             <img src="https://unsplash.it/600/300?image=${obj[i].image}" alt="">
-//         </div>
-//         <div class="post__footer">
-//             <div class="likes js-likes">
-//                 <div class="likes__cta">
-//                     <a class="like-button  js-like-button" href="#" data-postid="1">
-//                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-//                         <span class="like-button__label">Mi Piace</span>
-//                     </a>
-//                 </div>
-//                 <div class="likes__counter">
-//                     Piace a <b id="like-counter-1" class="js-likes-counter">${obj[i].likes}</b> persone
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// `;
-
-//     return template;
-// }
 
 // Funzione che separa nomi da cognomi e genera le iniziali
 function iniziali (string) {
@@ -109,6 +109,7 @@ function iniziali (string) {
     return inizial;
 }
 
+
 // Richiamo il container 
 const container = document.getElementById('container');
 
@@ -119,71 +120,13 @@ for (i = 0; i < post.length; i++) {
     // Gestione assenza immagine 
     let template = ``;
     if (post[i].profileImage == '') {
-        template = `
-            <div class="post">
-                <div class="post__header">
-                    <div class="post-meta">
-                        <div class="post-meta__icon">
-                            ${iniziali(post[i].name)}
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${post[i].name}</div>
-                            <div class="post-meta__time">${dateIta(post[i].date)}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post__text">${post[i].text}</div>
-                <div class="post__image">
-                    <img src="https://unsplash.it/600/300?image=${post[i].image}" alt="">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#" data-postid="1">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-1" class="js-likes-counter">${post[i].likes}</b> persone
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+
+        template = createTemplate(post[i].name, iniziali(post[i].name), dateIta(post[i].date), post[i].text, post[i].image, post[i].likes);
+
     } else {
-        template = `
-            <div class="post">
-                <div class="post__header">
-                    <div class="post-meta">
-                        <div class="post-meta__icon">
-                            <img class="profile-pic" src="https://unsplash.it/300/300?image=${post[i].profileImage}" alt="${post[i].name}">
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${post[i].name}</div>
-                            <div class="post-meta__time">${dateIta(post[i].date)}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post__text">${post[i].text}</div>
-                <div class="post__image">
-                    <img src="https://unsplash.it/600/300?image=${post[i].image}" alt="">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#" data-postid="1">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-1" class="js-likes-counter">${post[i].likes}</b> persone
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+
+        template = createTemplate(post[i].name, post[i].profileImage, dateIta(post[i].date), post[i].text, post[i].image, post[i].likes);
+
     }
 
     
